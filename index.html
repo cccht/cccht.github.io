@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ch">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<title>小曹同学</title>
+		<link type="text/css" rel="stylesheet" href="css/index.css"/>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+<!--		bootstrap 4-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<!-- vue -->
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+<!--		图标库-->
+		<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
+    </head>
+	<body>
+		<div class="header displaynone">
+			<div class="header-content">
+				<div class="header-title">
+					小曹同学
+				</div>
+				<div class="header-nav">
+					<ul>
+						<li><a href="#">首页</a></li>
+						<li><a href="#">网址库</a></li>
+					</ul>
+				</div>
+				<div class="login-ico">
+					<img src="img/login.png" id="open_login_box" alt="登录"/>
+				</div>
+			</div>
+		</div>
+		<div class="container displaynone" id="container">
+			<div class="background-small-header" style="background: url('img/back-small-header.png');">
+				<div class="small-header">
+					<div class="oneword">
+						<p id="hitokoto" class="text-center">愿一生辉煌不负此生。</p>
+					</div>
+				</div>
+				<div class="search mar-16">
+					<div class="con_search">
+						<input type="text" class="input_search" name="" autocomplete="off" id="search" placeholder="百度搜索" v-on:keyup.enter="search">
+						<a href="#" id="search_a"><i class="fa fa-search"></i></a>
+					</div>
+				</div>
+			</div>
+			<div class="nav">
+				<div class="menu">
+					<ul>
+						<li><a href="#" class="menu_a menu_active" v-on:click="menuTab('common')" id="common">常用</a></li>
+						<li><a href="#" class="menu_a" v-on:click="menuTab('tool')" id="tool">工具</a></li>
+						<li><a href="#" class="menu_a" v-on:click="menuTab('myself')" id="myself">我的</a></li>
+						<div style="clear: both"></div>
+					</ul>
+				</div>
+				<div class="con-hr"></div>
+				<div class="nav-content">
+					<div id="common-site" class="site-list">
+						<div class="nav-list common-site" v-for="sort in sites" style="display: none">
+							<div class="nav-list-title">
+								<span class="nav-list-title-content">{{sort.name}}</span>
+							</div>
+							<div class="nav-list-block">
+							</div>
+							<!--						8个链接-->
+							<div class="list-link" v-for="site in sort.content">
+								<a v-bind:href="site.url">
+									<div class="link-a-ico" v-bind:style="{backgroundImage:'url(' + site.ico + ')'}">
+									</div>
+									<span class="link-content">
+                                    {{site.name}}
+                                </span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div id="tool-site" class="site-list">
+						<div class="nav-list tool-site" v-for="sort in tool">
+							<div class="nav-list-title">
+								<span class="nav-list-title-content">{{sort.name}}</span>
+							</div>
+							<div class="nav-list-block">
+							</div>
+							<!--						8个链接-->
+							<div class="list-link" v-for="site in sort.content">
+								<a v-bind:href="site.url">
+									<div class="link-a-ico" v-bind:style="{backgroundImage:'url(' + site.ico + ')'}">
+									</div>
+									<span class="link-content">
+                                    {{site.name}}
+                                </span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div id="myself-site" class="site-list">
+						<div class="nav-list myself-site" v-for="sort in myself">
+							<div class="nav-list-title">
+								<span class="nav-list-title-content">{{sort.name}}</span>
+							</div>
+							<div class="nav-list-block">
+							</div>
+							<!--						8个链接-->
+							<div class="list-link" v-for="site in sort.content">
+								<a v-bind:href="site.url">
+									<div class="link-a-ico" v-bind:style="{backgroundImage:'url(' + site.ico + ')'}">
+									</div>
+									<span class="link-content">
+                                    {{site.name}}
+                                </span>
+								</a>
+							</div>
+						</div>
+                        <div class="add-myself-site">
+                            <img src="img/add-myself.png" width="50"  alt="添加"/>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<div class="word mar-16"></div>
+		</div>
+        <div class="login">
+            <div class="login_box">
+				<i style="font-size:24px" class="fa float-right" id="close_login_box">&#xf00d</i>
+				<h3 style="clear: both">小曹同学 | 登录</h3>
+				<input type="text" class="form-control" id="user" placeholder="请输入用户名">
+				<input type="password" class="form-control" id="pwd" placeholder="请输入密码">
+				<button type="button" class="btn">登录</button>
+            </div>
+        </div>
+		<div class="modal-backdrop">
+		</div>
+		<script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+		<script>
+			$(document).ready(function(){
+                const nav_list = $(".common-site");
+                function showSite(i){
+					if(i<nav_list.length){
+						$(nav_list[i]).fadeIn(500);
+						setTimeout(function(){showSite(i=i+1);},100);
+
+					}
+					else return false;
+				}
+                $("#common-site").css("display","block");
+				showSite(0);
+				// 搜索框
+				$("#search_a").click(function(){
+					window.location.href = "https://www.baidu.com/s?ie=UTF-8&wd="+$("#search").val();
+				});
+				// 回车跳转
+				// $(".input_search").keypress(function (e) {
+				// 	if (e.keyCode === 13) {
+				// 		window.location.href = "https://www.baidu.com/s?ie=UTF-8&wd="+$("#search").val();
+				// 	}
+				// });
+				// 登录框
+				$("#close_login_box").click(function () {
+					$(".login").fadeOut();
+					$(".modal-backdrop").fadeOut();
+				});
+				$("#open_login_box").click(function () {
+					$(".login").fadeIn(100);
+					$(".modal-backdrop").fadeIn();
+				});
+				$(".modal-backdrop").click(function () {
+					$(".login").fadeOut();
+					$(".modal-backdrop").fadeOut();
+				})
+			});
+			function menuTab(menu){
+				$(".menu_a").removeClass('menu_active');
+				$(menu).addClass('menu_active');
+			}
+		</script>
+		<script>
+			new Vue({
+				el: '#container',
+				data: {
+					sites:[
+						{name:'常用',content:[
+							{name:'潍坊学院图书馆预约系统',url:'http://210.44.64.139/touchscreen/index.php',ico:'img/ico.png'},
+							{name:'哔哩哔哩',url:'https://www.bilibili.com',ico:'http://www.bilibili.com/favicon.ico'},
+							{name:'百度网盘',url:'https://pan.baidu.com/',ico:'https://pan.baidu.com/static/images/favicon.ico'},
+							{name:'菜鸟教程',url:'https://www.runoob.com/',ico:'https://static.runoob.com/images/favicon.ico'},
+							{name:'小米商城',url:'https://www.mi.com/',ico:'https://www.mi.com/favicon.ico'},
+							{name:'淘宝',url:'https://www.taobao.com/',ico:'https://www.taobao.com/favicon.ico'},
+							{name:'京东',url:'https://www.jd.com/',ico:'https://www.jd.com/favicon.ico'},
+							{name:'清华镜像站',url:'https://mirrors.tuna.tsinghua.edu.cn/',ico:'https://mirrors.tuna.tsinghua.edu.cn/static/img/favicon.png'},
+							]},
+						{name:'新闻',content:[
+							{name:'人民网',url:'http://www.people.com.cn/',ico:'http://www.people.com.cn/favicon.ico'},
+							{name:'新华网',url:'http://www.xinhuanet.com/',ico:'http://www.xinhuanet.com/favicon.ico'},
+							{name:'澎湃网',url:'https://www.thepaper.cn/',ico:'https://www.thepaper.cn/favicon.ico'},
+							{name:'央视新闻',url:'http://news.cctv.com/',ico:'http://news.cctv.com/favicon.ico'},
+							{name:'新浪新闻',url:'https://news.sina.com.cn/',ico:'https://news.sina.com.cn/favicon.ico'},
+							{name:'百度新闻',url:'http://news.baidu.com/',ico:'http://www.baidu.com/favicon.ico'},
+							{name:'网易新闻',url:'https://news.163.com/',ico:'https://news.163.com/favicon.ico'},							
+							{name:'凤凰资讯',url:'http://news.ifeng.com/',ico:'http://news.ifeng.com/favicon.ico'},							
+							]},
+						{name:'阅读',content:[
+							{name:'豆瓣阅读',url:'https://read.douban.com/',ico:'https://read.douban.com/favicon.ico'},
+							{name:'多看阅读',url:'https://www.duokan.com',ico:'http://www.duokan.com/favicon.ico'},
+							{name:'起点阅读',url:'https://www.qidian.com',ico:'http://www.qidian.com/favicon.ico'},
+							{name:'简书',url:'https://www.jianshu.com',ico:'http://www.jianshu.com/favicon.ico'},
+							{name:'纵横文学',url:'http://www.zongheng.com',ico:'http://www.zongheng.com/favicon.ico'},
+							{name:'笔趣阁',url:'http://www.biquge.info',ico:'http://www.biquge.info/favicon.ico'},
+							{name:'鸠摩搜书',url:'https://www.jiumodiary.com/',ico:'https://read.douban.com/favicon.ico'},
+							{name:'搜书网',url:'http://www.soshu.cc/',ico:'http://www.soshu.cc/favicon.ico'}
+							]},
+						{name:'音乐',content:[
+							{name:'网易云音乐',url:'https://music.163.com/',ico:'https://s1.music.126.net/style/favicon.ico'},
+							{name:'酷狗音乐',url:'http://www.kugou.com/',ico:'http://www.kugou.com/favicon.ico'},
+							{name:'酷我音乐',url:'http://www.kuwo.cn/',ico:'http://www.kuwo.cn/favicon.ico'},
+							{name:'千千音乐',url:'http://music.taihe.com/',ico:'http://music.taihe.com/favicon.ico'},
+							{name:'QQ音乐',url:'https://y.qq.com/',ico:'https://y.qq.com/favicon.ico'},
+							{name:'虾米音乐',url:'https://www.xiami.com/',ico:'https:////img.alicdn.com/tfs/TB1qP4zgY5YBuNjSspoXXbeNFXa-550-550.png'},
+							{name:'17吉他',url:'http://www.17jita.com/',ico:'http://www.17jita.com/favicon.ico'},
+							{name:'虫虫吉他',url:'http://www.ccguitar.cn/',ico:'http://www.ccguitar.cn/favicon.ico'},
+							]},
+						{name:'社交',content:[
+							{name:'微博',url:'https://weibo.com/',ico:'https://weibo.com/favicon.ico'},
+							{name:'腾讯',url:'https://www.qq.com/',ico:'https://www.qq.com/favicon.ico'},
+							{name:'知乎',url:'https://www.zhihu.com/',ico:'https://static.zhihu.com/static/favicon.ico'},
+							{name:'微信',url:'https://wx.qq.com/',ico:'https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico'},
+							{name:'领英',url:'https://www.linkedin.com/',ico:'https://www.linkedin.com/favicon.ico'},
+							{name:'百度贴吧',url:'https://tieba.baidu.com/',ico:'https://tieba.baidu.com/favicon.ico'},
+							{name:'QQ空间',url:'https://qzone.qq.com/',ico:'https://qzone.qq.com/favicon.ico'},
+							{name:'36氪',url:'https://36kr.com/',ico:'https://36kr.com/favicon.ico'},
+							]},
+						{name:'影视',content:[
+							{name:'爱奇艺',url:'https://www.iqiyi.com/',ico:'https://www.iqiyi.com/favicon.ico'},
+							{name:'优酷',url:'https://www.youku.com/',ico:'https://img.alicdn.com/tfs/TB1WeJ9Xrj1gK0jSZFuXXcrHpXa-195-195.png'},
+							{name:'腾讯视频',url:'https://v.qq.com/',ico:'https://v.qq.com/favicon.ico'},
+							{name:'搜狐视频',url:'https://tv.sohu.com/',ico:'https://tv.sohu.com/favicon.ico'},
+							{name:'芒果TV',url:'https://www.mgtv.com/',ico:'https://www.mgtv.com/favicon.ico'},
+							{name:'哔哩哔哩',url:'http://www.bilibili.com',ico:'http://www.bilibili.com/favicon.ico'},
+							{name:'斗鱼TV',url:'https://www.douyu.com/',ico:'https://www.douyu.com/favicon.ico'},
+							{name:'虎牙',url:'https://www.huya.com/',ico:'https://www.huya.com/favicon.ico'},
+							]},						
+						],
+					tool:[
+						{name:'常用',content:[
+								{name:'潍坊学院图书馆预约系统',url:'http://210.44.64.139/touchscreen/index.php',ico:'img/ico.png'},
+								{name:'哔哩哔哩',url:'https://www.bilibili.com',ico:'http://www.bilibili.com/favicon.ico'},
+								{name:'百度网盘',url:'https://pan.baidu.com/',ico:'https://pan.baidu.com/static/images/favicon.ico'},
+								{name:'菜鸟教程',url:'https://www.runoob.com/',ico:'https://static.runoob.com/images/favicon.ico'},
+								{name:'小米商城',url:'https://www.mi.com/',ico:'https://www.mi.com/favicon.ico'},
+								{name:'淘宝',url:'https://www.taobao.com/',ico:'https://www.taobao.com/favicon.ico'},
+								{name:'京东',url:'https://www.jd.com/',ico:'https://www.jd.com/favicon.ico'},
+								{name:'清华镜像站',url:'https://mirrors.tuna.tsinghua.edu.cn/',ico:'https://mirrors.tuna.tsinghua.edu.cn/static/img/favicon.png'},
+							]},
+						{name:'编程',content:[
+								{name:'人民网',url:'http://www.people.com.cn/',ico:'http://www.people.com.cn/favicon.ico'},
+								{name:'新华网',url:'http://www.xinhuanet.com/',ico:'http://www.xinhuanet.com/favicon.ico'},
+								{name:'澎湃网',url:'https://www.thepaper.cn/',ico:'https://www.thepaper.cn/favicon.ico'},
+								{name:'央视新闻',url:'http://news.cctv.com/',ico:'http://news.cctv.com/favicon.ico'},
+								{name:'新浪新闻',url:'https://news.sina.com.cn/',ico:'https://news.sina.com.cn/favicon.ico'},
+								{name:'百度新闻',url:'http://news.baidu.com/',ico:'http://www.baidu.com/favicon.ico'},
+								{name:'网易新闻',url:'https://news.163.com/',ico:'https://news.163.com/favicon.ico'},
+								{name:'凤凰资讯',url:'http://news.ifeng.com/',ico:'http://news.ifeng.com/favicon.ico'},
+							]},
+						{name:'图像',content:[
+								{name:'豆瓣阅读',url:'https://read.douban.com/',ico:'https://read.douban.com/favicon.ico'},
+								{name:'多看阅读',url:'https://www.duokan.com',ico:'http://www.duokan.com/favicon.ico'},
+								{name:'起点阅读',url:'https://www.qidian.com',ico:'http://www.qidian.com/favicon.ico'},
+								{name:'简书',url:'https://www.jianshu.com',ico:'http://www.jianshu.com/favicon.ico'},
+								{name:'纵横文学',url:'http://www.zongheng.com',ico:'http://www.zongheng.com/favicon.ico'},
+								{name:'笔趣阁',url:'http://www.biquge.info',ico:'http://www.biquge.info/favicon.ico'},
+								{name:'鸠摩搜书',url:'https://www.jiumodiary.com/',ico:'https://read.douban.com/favicon.ico'},
+								{name:'搜书网',url:'http://www.soshu.cc/',ico:'http://www.soshu.cc/favicon.ico'}
+							]},
+						{name:'视频',content:[
+								{name:'网易云音乐',url:'https://music.163.com/',ico:'https://s1.music.126.net/style/favicon.ico'},
+								{name:'酷狗音乐',url:'http://www.kugou.com/',ico:'http://www.kugou.com/favicon.ico'},
+								{name:'酷我音乐',url:'http://www.kuwo.cn/',ico:'http://www.kuwo.cn/favicon.ico'},
+								{name:'千千音乐',url:'http://music.taihe.com/',ico:'http://music.taihe.com/favicon.ico'},
+								{name:'QQ音乐',url:'https://y.qq.com/',ico:'https://y.qq.com/favicon.ico'},
+								{name:'虾米音乐',url:'https://www.xiami.com/',ico:'https:////img.alicdn.com/tfs/TB1qP4zgY5YBuNjSspoXXbeNFXa-550-550.png'},
+								{name:'17吉他',url:'http://www.17jita.com/',ico:'http://www.17jita.com/favicon.ico'},
+								{name:'虫虫吉他',url:'http://www.ccguitar.cn/',ico:'http://www.ccguitar.cn/favicon.ico'},
+							]},
+						{name:'电脑',content:[
+								{name:'微博',url:'https://weibo.com/',ico:'https://weibo.com/favicon.ico'},
+								{name:'腾讯',url:'https://www.qq.com/',ico:'https://www.qq.com/favicon.ico'},
+								{name:'知乎',url:'https://www.zhihu.com/',ico:'https://static.zhihu.com/static/favicon.ico'},
+								{name:'微信',url:'https://wx.qq.com/',ico:'https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico'},
+								{name:'领英',url:'https://www.linkedin.com/',ico:'https://www.linkedin.com/favicon.ico'},
+								{name:'百度贴吧',url:'https://tieba.baidu.com/',ico:'https://tieba.baidu.com/favicon.ico'},
+								{name:'QQ空间',url:'https://qzone.qq.com/',ico:'https://qzone.qq.com/favicon.ico'},
+								{name:'36氪',url:'https://36kr.com/',ico:'https://36kr.com/favicon.ico'},
+							]}
+					],
+					myself:[
+						{name:'常用',content:[
+								{name:'潍坊学院图书馆预约系统',url:'http://210.44.64.139/touchscreen/index.php',ico:'img/ico.png'},
+								{name:'哔哩哔哩',url:'https://www.bilibili.com',ico:'http://www.bilibili.com/favicon.ico'},
+								{name:'百度网盘',url:'https://pan.baidu.com/',ico:'https://pan.baidu.com/static/images/favicon.ico'},
+								{name:'菜鸟教程',url:'https://www.runoob.com/',ico:'https://static.runoob.com/images/favicon.ico'},
+								{name:'小米商城',url:'https://www.mi.com/',ico:'https://www.mi.com/favicon.ico'},
+								{name:'淘宝',url:'https://www.taobao.com/',ico:'https://www.taobao.com/favicon.ico'},
+								{name:'京东',url:'https://www.jd.com/',ico:'https://www.jd.com/favicon.ico'},
+								{name:'清华镜像站',url:'https://mirrors.tuna.tsinghua.edu.cn/',ico:'https://mirrors.tuna.tsinghua.edu.cn/static/img/favicon.png'},
+							]}
+					],
+					menu_active:true
+				},
+				methods: {
+					search: function () {
+						// 现在我们可以访问原生事件对象
+						window.location.href = "https://www.baidu.com/s?ie=UTF-8&wd="+$("#search").val();
+					},
+					menuTab:function (message) {
+						$(".menu_a").removeClass('menu_active');
+						$("#"+message).addClass('menu_active');
+                        $(".site-list").css("display","none");
+						$("#"+message + "-site").css("display","block")
+					},
+
+				}
+			})
+		</script>
+	</body>
+</html>
